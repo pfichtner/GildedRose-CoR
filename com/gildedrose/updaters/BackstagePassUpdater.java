@@ -1,5 +1,7 @@
 package com.gildedrose.updaters;
 
+import com.gildedrose.ItemWrapper;
+
 public class BackstagePassUpdater {
 
 	private static final String BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";

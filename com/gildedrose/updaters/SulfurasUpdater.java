@@ -1,5 +1,7 @@
 package com.gildedrose.updaters;
 
+import com.gildedrose.ItemWrapper;
+
 public class SulfurasUpdater {
 
 	private static final String SULFURAS = "Sulfuras, Hand of Ragnaros";

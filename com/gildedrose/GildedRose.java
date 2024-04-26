@@ -6,7 +6,6 @@ import java.util.stream.Stream;
 
 import com.gildedrose.updaters.AgedBrieUpdater;
 import com.gildedrose.updaters.BackstagePassUpdater;
-import com.gildedrose.updaters.ItemWrapper;
 import com.gildedrose.updaters.SulfurasUpdater;
 
 class GildedRose {

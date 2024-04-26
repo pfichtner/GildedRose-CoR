@@ -1,5 +1,7 @@
 package com.gildedrose.updaters;
 
+import com.gildedrose.ItemWrapper;
+
 public class AgedBrieUpdater {
 
 	private static final String AGED_BRIE = "Aged Brie";
