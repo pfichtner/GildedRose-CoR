@@ -1,14 +1,22 @@
 package com.gildedrose;
 
+import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 import com.gildedrose.updaters.AgedBrieUpdater;
 import com.gildedrose.updaters.BackstagePassUpdater;
 import com.gildedrose.updaters.SulfurasUpdater;
 
 class GildedRose {
+
+	private static final List<Function<ItemWrapper, Boolean>> updaters = List.of( //
+			BackstagePassUpdater::updateBackstagePass, //
+			AgedBrieUpdater::updateAgedBrie, //
+			SulfurasUpdater::updateSulfuras //
+	);
+
+	private static final Predicate<Boolean> couldHandle = Boolean.TRUE::equals;
 
 	private final Item[] items;
 
@@ -19,27 +27,18 @@ class GildedRose {
 	public void updateQuality() {
 		for (Item item : items) {
 			ItemWrapper itemWrapper = new ItemWrapper(item);
-			updaterChain().map(i -> i.apply(itemWrapper)).filter(couldHandle()).findFirst()
+			updaters.stream() //
+					.map(u -> u.apply(itemWrapper)) //
+					.filter(couldHandle) //
+					.findFirst() //
 					.orElseGet(() -> updateDefault(itemWrapper));
 		}
-	}
-
-	private Predicate<Boolean> couldHandle() {
-		return Boolean.TRUE::equals;
 	}
 
 	private static boolean updateDefault(ItemWrapper item) {
 		item.decreaseQuality(item.hasSellingDayPassed() ? 2 : 1);
 		item.decreaseSellIn();
 		return true;
-	}
-
-	private static Stream<Function<ItemWrapper, Boolean>> updaterChain() {
-		return Stream.<Function<ItemWrapper, Boolean>> of( //
-				BackstagePassUpdater::updateBackstagePass, //
-				AgedBrieUpdater::updateAgedBrie, //
-				SulfurasUpdater::updateSulfuras //
-		);
 	}
 
 }
