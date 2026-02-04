@@ -20,7 +20,7 @@ class GildedRose {
 	public void updateQuality() {
 		for (Item item : items) {
 			ItemWrapper itemWrapper = new ItemWrapper(item);
-			updaterChain().map(i -> i.apply(itemWrapper)).filter(couldHandle()).findFirst()
+			chain().map(i -> i.apply(itemWrapper)).filter(couldHandle()).findFirst()
 					.orElseGet(() -> updateDefault(itemWrapper));
 		}
 	}
@@ -35,7 +35,7 @@ class GildedRose {
 		return true;
 	}
 
-	private static Stream<Function<ItemWrapper, Boolean>> updaterChain() {
+	private static Stream<Function<ItemWrapper, Boolean>> chain() {
 		return Stream.<Function<ItemWrapper, Boolean>> of( //
 				BackstagePassUpdater::updateBackstagePass, //
 				AgedBrieUpdater::updateAgedBrie, //
